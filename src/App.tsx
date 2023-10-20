@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { getWeatherData } from "./api";
+import WeatherInfo from "./components/WeatherInfo";
+import { Form } from "react-bootstrap";
 
 function App() {
+  const [city, setCity] = useState("Tashkent");
+  const [weatherData, setWeatherData] = useState<any | null>(null);
+
+  useEffect(() => {
+    getWeatherData(city).then((data) => setWeatherData(data));
+  }, [city]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Form className="container mt-4 shadow p-3 mb-5 bg-body-tertiary rounded w-2 h-3">
+      <Form.Group>
+        <Form.Label className="fs-2 mb-2">Weather App</Form.Label>
+        <Form.Control
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          className="mb-3 w-2/3"
+        ></Form.Control>
+        {weatherData && <WeatherInfo data={weatherData} />}
+      </Form.Group>
+    </Form>
   );
 }
 
