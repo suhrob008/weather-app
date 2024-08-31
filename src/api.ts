@@ -1,4 +1,4 @@
-const apiKey = "ef6fdfa517524b82677ac75fac000967"; // API kalitingizni joylashtiring
+const apiKey = "ef6fdfa517524b82677ac75fac000967"; 
 
 export const getWeatherData = async (city: string) => {
   try {
